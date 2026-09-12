@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Open Graph / Facebook / LinkedIn Social Share Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://akashkumarray.github.io/Flyrank-Internship/">
+  <meta property="og:title" content="Akash Ray — Applied ML Engine & Search Intelligence Capstone">
+  <meta property="og:description" content="Applied Machine Learning Research Paper: Content Refresh Opportunity Scoring Engine achieving 89.20% Precision@50 on Google search ranking telemetry.">
+  <meta property="og:image" content="https://akashkumarray.github.io/Flyrank-Internship/logo.svg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://akashkumarray.github.io/Flyrank-Internship/">
+  <meta name="twitter:title" content="Akash Ray — Applied ML Engine & Search Intelligence Capstone">
+  <meta name="twitter:description" content="Applied Machine Learning Research Paper: Content Refresh Opportunity Scoring Engine achieving 89.20% Precision@50 on Google search ranking telemetry.">
+  <meta name="twitter:image" content="https://akashkumarray.github.io/Flyrank-Internship/logo.svg">
+
+  <!-- Canonical Link & Favicon -->
+  <link rel="canonical" href="https://akashkumarray.github.io/Flyrank-Internship/">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Typography Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-color: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --accent: #2563EB;
+      --border-color: #E2E8F0;
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1rem;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+    }
+    
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .logo-text {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+    
+    .status-badge {
+      background-color: rgba(37, 99, 235, 0.1);
+      color: var(--accent);
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+    }
+    
+    .paper-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+    }
+    
+    .paper-title {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .paper-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    h2 {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .abstract-box {
+      background-color: #EFF6FF;
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+
+    .abstract-box p {
+      color: #1E3A8A;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1.5rem 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      min-width: 500px;
+    }
+
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-weight: 600;
+      font-family: var(--font-heading);
+    }
+
+    .code-block {
+      background-color: #0F172A;
+      color: #F8FAFC;
+      padding: 1.25rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    .badge-metric {
+      display: inline-block;
+      background-color: #DCFCE7;
+      color: #166534;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: 2rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile First & Responsive Design Media Queries */
+    @media (max-width: 640px) {
+      body {
+        padding: 1rem 0.75rem;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .paper-card {
+        padding: 1.25rem 1rem;
+        border-radius: 12px;
+      }
+
+      .paper-title {
+        font-size: 1.5rem;
+        line-height: 1.3;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      #submit-btn {
+        width: 100% !important;
+        min-height: 48px;
+        font-size: 1rem;
+      }
+
+      th, td {
+        padding: 0.5rem 0.65rem;
+        font-size: 0.85rem;
+      }
+    }
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="logo-group">
+        <!-- SVG AP Monogram Logo -->
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="10" fill="#0F172A"/>
+          <path d="M12 28L18 12H22L28 28H24.2L22.8 24H17.2L15.8 28H12ZM18.4 19.5H21.6L20 15L18.4 19.5Z" fill="#F8FAFC"/>
+          <circle cx="28" cy="12" r="3" fill="#2563EB"/>
+        </svg>
+        <span class="logo-text">Akash Ray | Research</span>
+      </div>
+      <div class="status-badge">
+        <span class="status-dot"></span> Capstone Deployed
+      </div>
+    </header>
+
+    <main class="paper-card">
+      <h1 class="paper-title">Google Search Ranking & Discoverability Capstone: Content Opportunity Scoring Engine</h1>
+      
+      <div class="paper-meta">
+        <strong>Author:</strong> Akash Ray &nbsp;|&nbsp; 
+        <strong>Track:</strong> Applied Machine Learning Capstone (ML-08) &nbsp;|&nbsp; 
+        <strong>Lane:</strong> Lane 2 (Refresh / Content Opportunity Scoring) &nbsp;|&nbsp; 
+        <strong>Dataset:</strong> FlyRank Search Intelligence Dataset
+      </div>
+
+      <!-- 1. ABSTRACT -->
+      <section>
+        <h2>1. Abstract</h2>
+        <div class="abstract-box">
+          <p>
+            Editorial teams managing large-scale web properties face a constant operational challenge: prioritizing decaying content for updates under strict weekly capacity limits. In this paper, we develop an empirical Machine Learning decision-support engine using an anonymized Search Console panel dataset of 30,000 content items across 30 client properties. By isolating an active demand slice of 22,006 pages (impressions_90d >= 100) and defining an observed relative impression drop target (ΔImp_rel < -15.0%), we evaluate multiple classifiers using 5-fold GroupKFold cross-validation grouped by client_id to prevent domain leakage. Our Random Forest model achieves 84.00% Precision@50 and 91.00% Precision@20, generating an actionable ranking queue that delivers a 1.31x lift over random baseline selection. These results demonstrate that readable, non-linear ML scoring effectively channels limited editorial bandwidth toward high-decay pages.
+          </p>
+        </div>
+      </section>
+
+      <!-- 2. INTRODUCTION -->
+      <section>
+        <h2>2. Introduction & Problem Statement</h2>
+        <p>
+          Managing search visibility across large content catalogs requires identifying when published pages experience organic traffic decay. Modern content marketing operations typically possess fixed weekly execution budgets (e.g. updating 50 pages per week out of a backlog of 20,000+ pages). Relying on intuition or static hand-written rules often leads to wasted resources on stable pages or missing high-impact decaying assets.
+        </p>
+        <p>
+          This research builds a decision-support system to score and rank content pages by their probability of future search impression decay. The model operates as a high-confidence filter, surfacing the top-50 candidate pages each week for human editorial review.
+        </p>
+      </section>
+
+      <!-- 3. DATA SECTION -->
+      <section>
+        <h2>3. Data & Availability Filter</h2>
+        <p>
+          We utilize the official FlyRank anonymized search intelligence dataset comprising 30,000 rows across 30 pseudonymized client domains. To eliminate low-traffic noise and unindexed stub pages, we apply an explicit availability filter.
+        </p>
+        <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Dataset Segment</th>
+              <th>Row Count</th>
+              <th>Percentage</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Full Raw Dataset</td>
+              <td>30,000</td>
+              <td>100.00%</td>
+              <td>Complete anonymized multi-client panel snapshot</td>
+            </tr>
+            <tr>
+              <td>Active Demand Slice</td>
+              <td>22,006</td>
+              <td>73.35%</td>
+              <td>Filtered slice with <code>impressions_90d &gt;= 100</code></td>
+            </tr>
+            <tr>
+              <td>Excluded Low Demand</td>
+              <td>7,994</td>
+              <td>26.65%</td>
+              <td>Unindexed or zero-search traffic stub pages</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <p>
+          <strong>Public Safety Exclusions:</strong> Per public research rules, all raw client identifiers, domain URLs, private query strings, and credentials are completely anonymized or excluded from publication.
+        </p>
+      </section>
+
+      <!-- 4. METHODOLOGY -->
+      <section>
+        <h2>4. Methodology & Validation Design</h2>
+        <p>
+          <strong>Observed Target Definition:</strong> We construct an observed binary target representing relative search impression drop across consecutive 30-day windows:
+        </p>
+        <div class="code-block">
+target_decay_flag = ( (impressions_last_30d - impressions_prev_30d) / (impressions_prev_30d + 1) * 100 ) < -15.0
+        </div>
+        <p>
+          <strong>Safe Feature Matrix (No Leakage):</strong> We restrict the feature space strictly to signals knowable prior to the evaluation window:
+        </p>
+        <ul>
+          <li><code>ctr</code>: Historical Search Console click-through rate over 90-day baseline window.</li>
+          <li><code>avg_position</code>: Baseline organic search position log.</li>
+          <li><code>content_age_days</code>: Total days since initial publication.</li>
+          <li><code>days_since_last_update</code>: Days elapsed since last editorial revision.</li>
+          <li><code>engagement_rate</code>: Baseline user interaction telemetry.</li>
+        </ul>
+        <p>
+          <strong>Cross-Validation Design:</strong> Models are evaluated using 5-fold <code>GroupKFold</code> cross-validation grouped by <code>client_id</code>. This ensures zero data leakage across domain boundaries, measuring true model generalization to unseen websites.
+        </p>
+      </section>
+
+      <!-- 5. RESULTS -->
+      <section>
+        <h2>5. Results & Benchmark Comparison</h2>
+        <p>
+          We evaluate four scoring methods on the exact same 5-fold <code>GroupKFold</code> split:
+        </p>
+        <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Model / Strategy</th>
+              <th>Precision@20</th>
+              <th>Precision@50</th>
+              <th>ROC-AUC</th>
+              <th>Lift over Base Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Random Selection (Base Rate)</td>
+              <td>64.29%</td>
+              <td>64.29%</td>
+              <td>0.5000</td>
+              <td>1.00x</td>
+            </tr>
+            <tr>
+              <td>Baseline Heuristic Rule</td>
+              <td>75.00%</td>
+              <td>80.00%</td>
+              <td>N/A</td>
+              <td>1.24x</td>
+            </tr>
+            <tr>
+              <td>Gradient Boosting Classifier</td>
+              <td>86.00%</td>
+              <td>84.80%</td>
+              <td>0.6035</td>
+              <td>1.32x</td>
+            </tr>
+            <tr>
+              <td><strong>Random Forest Classifier</strong></td>
+              <td><span class="badge-metric">91.00%</span></td>
+              <td><span class="badge-metric">84.00%</span></td>
+              <td><strong>0.6152</strong></td>
+              <td><strong>1.31x</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Logistic Regression</strong></td>
+              <td><span class="badge-metric">94.00%</span></td>
+              <td><span class="badge-metric">89.20%</span></td>
+              <td><strong>0.6130</strong></td>
+              <td><strong>1.39x</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </section>
+
+      <!-- 6. LIMITATIONS -->
+      <section>
+        <h2>6. Limitations & Honest Framing</h2>
+        <p>
+          This model is strictly designed as a decision-support filter, not an automated editorial replacement. All outputs must be interpreted directionally:
+        </p>
+        <ul>
+          <li><strong>Correlational Observational Boundary:</strong> High predicted decay probability indicates observational correlation with historical traffic drops; it does not constitute causal proof that a refresh will guarantee organic recovery.</li>
+          <li><strong>Macro External Factors:</strong> Model predictions do not capture macro-economic search volume shifts or global search engine algorithm updates.</li>
+        </ul>
+      </section>
+
+      <!-- 7. RECOMMENDATIONS PLAYBOOK -->
+      <section>
+        <h2>7. Ranked Recommendations Playbook</h2>
+        <p>
+          The output queue attaches transparent reason codes to guide human editors:
+        </p>
+        <ul>
+          <li><code>CRITICAL_STALE_HIGH_DEMAND</code>: Pages updated >180 days ago with >1,000 impressions. Action: Complete structural content refresh.</li>
+          <li><code>STALE_LOW_CTR</code>: Pages updated >90 days ago with CTR below 2.0%. Action: Title tag and meta description optimization.</li>
+        </ul>
+      </section>
+
+      <!-- 8. REPRODUCIBILITY -->
+      <section>
+        <h2>8. Reproducibility & Open Assets</h2>
+        <p>
+          All code, executed Jupyter notebooks, and metric validation receipts are open-source and reproducible:
+        </p>
+        <p>
+          💻 <strong>GitHub Repository:</strong> <a href="https://github.com/akashkumarray/Flyrank-Internship" target="_blank">https://github.com/akashkumarray/Flyrank-Internship</a><br>
+          📓 <strong>Capstone Model Notebook:</strong> <a href="https://github.com/akashkumarray/Flyrank-Internship/blob/main/work/notebooks/w05_capstone_model.ipynb" target="_blank">w05_capstone_model.ipynb</a><br>
+          📊 <strong>Action Queue Export CSV:</strong> <code>work/outputs/capstone_action_recommendations.csv</code>
+        </p>
+      </section>
+
+      <!-- 9. ACKNOWLEDGMENTS -->
+      <section>
+        <h2>9. Acknowledgments & Data Credit</h2>
+        <p>
+          Built on the <a href="https://flyrank.ai/" target="_blank">FlyRank ML Internship dataset</a>. Special thanks to the FlyRank engineering team for providing anonymized search intelligence telemetry for applied machine learning research.
+        </p>
+      </section>
+
+      <!-- 10. WORKING CONTACT FORM -->
+      <section id="contact">
+        <h2>10. Contact & Discovery</h2>
+        <p style="margin-bottom: 1.5rem;">Have questions about this search intelligence model or interested in technical collaboration? Send a direct message below:</p>
+
+        <form id="contact-form" action="https://formspree.io/f/xbjnqpyz" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
+          <div id="form-alert" style="display: none; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.9rem; font-weight: 500;"></div>
+          
+          <div class="contact-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div>
+              <label for="form-name" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">Your Name *</label>
+              <input type="text" id="form-name" name="name" placeholder="e.g. Sarah Jenkins" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: var(--font-body); font-size: 0.95rem;">
+            </div>
+            <div>
+              <label for="form-email" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">Email Address *</label>
+              <input type="email" id="form-email" name="email" placeholder="e.g. sarah@company.com" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: var(--font-body); font-size: 0.95rem;">
+            </div>
+          </div>
+          
+          <div>
+            <label for="form-subject" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">Subject *</label>
+            <input type="text" id="form-subject" name="subject" placeholder="e.g. Inquiry regarding Search Refresh Model" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: var(--font-body); font-size: 0.95rem;">
+          </div>
+          
+          <div>
+            <label for="form-message" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">Message *</label>
+            <textarea id="form-message" name="message" rows="4" placeholder="Write your message here..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: var(--font-body); font-size: 0.95rem; resize: vertical;"></textarea>
+          </div>
+          
+          <button type="submit" id="submit-btn" style="background-color: var(--accent); color: white; border: none; padding: 0.85rem 1.5rem; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: opacity 0.2s ease; width: fit-content;">
+            Send Message 🚀
+          </button>
+        </form>
+
+        <div id="form-success" style="display: none; background-color: rgba(37, 99, 235, 0.08); border: 1px solid var(--accent); padding: 1.5rem; border-radius: 12px; text-align: center; margin-top: 1rem;">
+          <h3 style="color: var(--accent); margin-bottom: 0.5rem;">🎉 Message Sent Successfully!</h3>
+          <p>Thank you for reaching out. Your message has been transmitted and I will respond to your inbox shortly.</p>
+        </div>
+      </section>
+
+      <script>
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const form = e.target;
+          const name = document.getElementById('form-name').value.trim();
+          const email = document.getElementById('form-email').value.trim();
+          const subject = document.getElementById('form-subject').value.trim();
+          const message = document.getElementById('form-message').value.trim();
+          const alertBox = document.getElementById('form-alert');
+          const submitBtn = document.getElementById('submit-btn');
+          const successBox = document.getElementById('form-success');
+
+          // Fail-graceful input validation
+          if (!name || !email || !subject || !message) {
+            alertBox.style.display = 'block';
+            alertBox.style.backgroundColor = '#FEE2E2';
+            alertBox.style.color = '#991B1B';
+            alertBox.style.border = '1px solid #FCA5A5';
+            alertBox.textContent = '⚠️ Please fill out all required fields before submitting.';
+            return;
+          }
+
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            alertBox.style.display = 'block';
+            alertBox.style.backgroundColor = '#FEE2E2';
+            alertBox.style.color = '#991B1B';
+            alertBox.style.border = '1px solid #FCA5A5';
+            alertBox.textContent = '⚠️ Please enter a valid email address (e.g. name@domain.com).';
+            return;
+          }
+
+          alertBox.style.display = 'none';
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Transmitting Message...';
+
+          try {
+            const response = await fetch('https://formspree.io/f/xbjnqpyz', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({ name, email, subject, message })
+            });
+
+            if (response.ok) {
+              form.style.display = 'none';
+              successBox.style.display = 'block';
+            } else {
+              throw new Error('Form network submission failed');
+            }
+          } catch (err) {
+            alertBox.style.display = 'block';
+            alertBox.style.backgroundColor = '#FEF3C7';
+            alertBox.style.color = '#92400E';
+            alertBox.style.border = '1px solid #FCD34D';
+            alertBox.textContent = '⚠️ Could not connect to form server. Please check your internet connection or email directly.';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message 🚀';
+          }
+        });
+      </script>
+
+    </main>
+
+    <footer style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
+      <!-- FlyRank AI Internship Graduate Badge -->
+      <div style="margin-bottom: 0.5rem;">
+        <a href="https://internship.flyrank.ai/verify?id=FR-D1-FEA2F-84A32&amp;first_name=Akash" target="_blank" rel="noopener noreferrer"
+           aria-label="Verify Akash Ray's FlyRank AI Internship credential"
+           style="box-sizing:border-box;margin:0;padding:0;border:0;background:none;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-style:normal;line-height:1.25;text-transform:none;float:none;-webkit-font-smoothing:antialiased;display:inline-flex;align-items:center;gap:14px;padding:14px 18px;background:#FFFFFF;border:1px solid #DDE4E7;border-radius:20px;box-shadow:0 1px 2px rgba(5,31,33,0.05);max-width:100%">
+          <svg width="40" height="40" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="display:block;flex:none;opacity:1;transform:none;max-width:none"><rect width="96" height="96" rx="22" fill="#051F21" /><path d="M28.2354 74.2202V67.9039C29.6419 68.4369 31.3724 68.7055 33.4311 68.7055C35.3235 68.7055 36.8153 68.2396 37.8979 67.3079C38.9805 66.3762 39.9566 64.8695 40.8218 62.792L42.6887 58.3139L29.8976 29.2879C35.0038 29.2879 39.6028 32.3307 41.5294 36.9893L47.0746 50.3985L56.0126 28.6038C57.9221 23.9452 62.5168 20.894 67.6187 20.894L50.0795 63.5936C48.4556 67.5933 46.5205 70.5102 44.2743 72.3484C42.0281 74.1867 39.1169 75.1058 35.5451 75.1058C32.6212 75.1058 30.1875 74.812 28.2354 74.2244V74.2202Z" fill="#54E399" /></svg>
+          <span style="margin:0;padding:0;border:0;background:none;color:inherit;font-weight:400;font-style:normal;letter-spacing:normal;text-transform:none;text-decoration:none;white-space:normal;float:none;display:flex;flex-direction:column;gap:4px;min-width:0">
+            <span style="margin:0;padding:0;border:0;background:none;color:inherit;font-weight:400;font-style:normal;letter-spacing:normal;text-transform:none;text-decoration:none;white-space:normal;float:none;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(5,31,33,0.5)">FlyRank AI Internship</span>
+            <span style="margin:0;padding:0;border:0;background:none;color:inherit;font-weight:400;font-style:normal;letter-spacing:normal;text-transform:none;text-decoration:none;white-space:normal;float:none;font-size:15px;font-weight:600;color:#051F21;letter-spacing:-0.01em;white-space:nowrap">Verified credential</span>
+            <span style="margin:0;padding:0;border:0;background:none;color:inherit;font-weight:400;font-style:normal;letter-spacing:normal;text-transform:none;text-decoration:none;white-space:normal;float:none;font-size:11.5px;color:rgba(5,31,33,0.5);white-space:nowrap">Machine Learning</span>
+          </span>
+          <span style="margin:0;padding:0;border:0;background:none;color:inherit;font-weight:400;font-style:normal;letter-spacing:normal;text-transform:none;text-decoration:none;white-space:normal;float:none;display:flex;align-items:center;gap:6px;margin-left:8px;padding:6px 12px;background:rgba(84,227,153,0.12);border:1px solid rgba(84,227,153,0.28);border-radius:9999px;font-size:12px;font-weight:600;color:#1A7A4A;flex:none">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="display:block;flex:none;opacity:1;transform:none;max-width:none"><circle cx="12" cy="12" r="10" stroke="#1A7A4A" stroke-width="1.5" /><path d="M7.9 12.3l2.8 2.8 5.4-5.8" stroke="#1A7A4A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>Verify
+          </span>
+        </a>
+      </div>
+
+      <p>&copy; 2026 Akash Ray. All rights reserved. Built with semantic HTML5 and plain CSS.</p>
+    </footer>
+  </div>
+
+</body>
+</html>
